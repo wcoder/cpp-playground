@@ -6,6 +6,10 @@
 
 using namespace std;
 
+#define PORT    9999
+#define MAXMSG  512
+#define MAXC    10
+
 int main() {
 
   // Create a socket (IPv4, TCP)
@@ -19,7 +23,7 @@ int main() {
   sockaddr_in server;
   server.sin_family = AF_INET; // local
   server.sin_addr.s_addr = INADDR_ANY;
-  server.sin_port = htons(9999);
+  server.sin_port = htons(PORT);
   auto addrlen = sizeof(server);
 
   if (bind(main_socket, (struct sockaddr*)&server, addrlen) < 0) {
@@ -28,7 +32,7 @@ int main() {
   }
 
   // Start listening. Hold at most 10 connections in the queue
-  if (listen(main_socket, 10) < 0) {
+  if (listen(main_socket, MAXC) < 0) {
     cout << "Failed to listen on socket. Errorno: " << errno << endl;
     exit(EXIT_FAILURE);
   }
@@ -42,7 +46,7 @@ int main() {
 
   // Read from the connection
   char buffer[100];
-  auto bytesRead = read(connection, buffer, 100);
+  auto bytesRead = read(connection, buffer, MAXMSG);
   cout << "The message: " << buffer;
 
   // Send a message to the connection
