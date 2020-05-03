@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <unistd.h>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -50,8 +52,13 @@ int main() {
   cout << "The message: " << buffer;
 
   // Send a message to the connection
-  string response = "Pong\n";
-  send(connection, response.c_str(), response.size(), 0);
+  for (int i = 0; i < 1000; i++)
+  {
+    string response = to_string(i) + "\n";
+    send(connection, response.c_str(), response.size(), 0);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  }
 
   // Close the connection
   close(connection);
