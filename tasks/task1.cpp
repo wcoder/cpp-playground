@@ -6,18 +6,22 @@ using namespace std;
 
 int main()
 {
-    int i,d;
-    double res[150],a;
+    int i, d;
+    double res[150], x;
 
-    cin>>d;
+    cin >> d;
 
-    for (i=0; i<d; i++)
+    for (i=0; i < d; i++)
     {
-        cin >> a;
-        res[i] = pow(a, 4.0) * 1 + pow(a, 3.0) * 1.2 + pow(a,2.0) * (-20) + 123.456;
+        cin >> x;
+        res[i] = pow(x, 4.0) * 1     // A
+               + pow(x, 3.0) * 1.2   // B
+               + pow(x, 2.0) * (-20) // C
+               + pow(x, 1.0) * 0     // D
+               + 123.456;            // E
     }
 
-    for (i=0; i<d; i++)
+    for (i=0; i < d; i++)
     {
         printf("%.3f\n", res[i]);
     }
